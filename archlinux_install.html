@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Arch Linux Install 笔记</title> 
+        <style>
+            h1
+            {
+                text-align:center;
+            }
+            p
+            {
+                text-indent:2em;
+            }
+            body
+            {
+                margin:5%;
+            }
+            div
+            {
+                text-align:center;
+            }
+            table
+            {
+                border:1px solid black;
+                border-collapse: collapse;
+            }
+            th,td
+            {
+                border:1px solid black;
+                text-align:center;
+            }
+            code
+            {
+                background-color:Snow;
+            }
+            strong
+            {
+                background-color:whitesmoke;
+            }
+        </style>
+    </head>
+    <body>
+        <h1> Arch Linux Install </h1>
+        <h2>一、准备</h2>
+        <h3>1.镜像文件和Live CD</h3>
+        <p>可以在<a href="https://www.archlinux.org/download/" target="_Blank"> Arch Linux官网</a>上下载镜像文件，他的GnuPG 签名也可以从下载页面中找到。</p>
+        <ul>
+            <li>
+                在虚拟机中安装：不需要制作Live CD 环境，直接使用镜像文件即可。
+            </li>
+            <li>
+                安装实体机：需要制作Live CD 环境
+                <ul>
+                    <li>
+                        在Windows环境下偶我们可以使用<b>Ultra ISO、Rufus<b>等工具来制作Live CD
+                    </li>
+                    <li>
+                        在Linux环境下我们可以使用命令行进行刻录:<br />
+                        <code>
+                            $ sudo fdisk -l     # 查看U盘，找到U盘的设备文件<br />
+                            $ dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx status=progress oflag=sync 
+                        </code>
+                    </li>
+                </ul>
+                <p>
+                <strong>/path/to/archlinux.iso</strong> 是archlinux镜像文件路径,<strong>/dev/sdx</strong>是U盘的设备文件，使用<strong>oflag</strong>来控制输出（写入数据）时的行为特征，确保命令结束时数据及元数据真正写入磁盘，而不是刚写入缓存区就返回，<strong>status=LEVEL</strong>用来控制<strong>dd</strong>程序的输出信息，<strong>LEVEL</strong>有三个选项<strong>none</strong>、<strong>noxfer</strong>和<strong>progress</strong>,默认是<strong>progress</strong>，<strong>none</strong>的意识是不输出任何相关信息，除非是出错信息，<strong>oxfer</strong>不会输出最后的统计信息，而<strong>progress</strong>会输出所有信息。
+                </p>
+            </li>
+        </ul>
+        <h3>2.网络</h3>
+        <p>
+        Arch Linux安装，是需要运行Live CD系统并通过该系统从服务器中拉取数据，并进行安装，因此我们需要联网。
+        </p>
+        <h2>二、安装</h2>
+        <h3>1.Live CD系统配置</h3>
+        <ol type="a">
+            <li>启动Live CD</li>
+            Arch Linux的整个安装过程都是基于Live CD的，所以要先启动Live CD系统。
+            <li>设置键盘布局</li>
+            <a href="https://wiki.archlinux.org/index.php/Linux_console/Keyboard_configuration" target="_blank">控制台键盘布局</a>默认为<strong>us</strong>（美式键盘映射）。可以使用下面的命令列出可用的键盘布局：
+            <br />
+            <code>
+                $ localectl list-keymaps    # 查看所有键盘那映射<br />
+                $ localectl list-keymaps | grep -i search_term  # 查找键盘布局<br />
+            </code>
+            如果你想要更改键盘布局，可以使用下面的命令:
+            <br />
+                <code>
+                    $ loadkeys keymap   # 临时改变键盘映射<br />
+                    $ localectl set-keymap --no-convert keymap  # 永久改变键盘映射，该命令同时修改了<strong>/etc/vconsole.conf</strong>，和当前会话中的<strong>KEYMAP</strong> <br />
+                </code>
+            <li>验证启动模式</li>
+
+            <code>
+                $ cat /sys/firmware/efi/fw_platform_size
+            </code>
+            <br />
+            如果没有找到文件，则启动模式不是UEFI模式。否则，启动模式为UEFi模式，此时，会得到一个返回值并输出在屏幕上，如果放回值为64，表示使用的是64-bit(x86_64)UEFI，如果返回值为32，表示使用的是32-bit(IA32)UEFI.
+            <li>连接因特网</li>
+                <ol>
+                    <li>确保系统已经启用了网络接口</li>
+                    <code>$ ip link</code>
+                    <li>连接网络、连接网线或无线网络。</li>
+                    <li>配置网络连接</li>
+                    <ul>
+                        <li>静态IP</li>
+                        <li>动态IP</li>
+                    </ul>
+                    <li>用 <strong>ping</strong>命令检查网络连接</li>
+                    <code>
+                        $ ping -c 4 biaud.com
+                    </code>
+                </ol>
+            <li>设置时区并更新系统时间</li>
+            使用<strong>timedatectl</strong>确保系统时间是准确的：
+            <br />
+            <code>$ timedatectl set-ntp true </code>
+            <br />
+            可以使用<code>timedatectl status</code>检查服务状态。
+            <li>选择镜像源</li>
+            修改<strong>/etc/pacman.d/mirrorlist</strong>文件中的内容，找到对应地区的镜像源并将其剪切到源列表头部即可。
+            <br />
+            <code>$ vim /etc/pacman.d/mirrorlist # 使用vim 编辑器打开文件</code>
+            <br />
+            打开文件后，输入<strong>/China</strong>并按下<kbd>Enter</kbd>，找到中国地区的源，如中科大（USTC）源或清华(tuna）源等源后，输入<strong>2dd</strong>剪切，并将剪切内容放置到文件头部并保存即可。
+        </ol>
+        <h3>2.Arch Linux安装</h3>
+        <ol type="a">
+            <li>硬盘配置</li>
+            <ul>
+                <li>查看设备</li>
+                磁盘若备系统识别到，就会分配为一个块设备，如<strong>/dev/sda</strong>或<strong>/dev/nvmeOn1</strong>，可以使用<strong>lsblk</strong>或<strong>fdisk</strong>查看:
+                <br />
+                <code>
+                    $ lsblk     <br />
+                    $ fdisk -l      <br />
+                </code>
+                <li>建立硬盘分区</li>
+                对于一个选定的设备，以下分区是必须要有的：<br />
+                <ol>
+                    <li>一个根分区（挂载在根目录）<strong>/</strong>;</li>
+                    <li>如果UEFI模式备启用，还需要一个EFI系统分区。
+                </ol>
+                <br />
+                <table>
+                    <tr>
+                        <th colspan="4">BIOS With MBR</th>
+                    </tr>
+                    <tr>
+                        <td><b>Mount Point</b></td>
+                        <td><b>Partition</b></td>
+                        <td><b>Partition Type</b></td>
+                        <td><b>Suggested Size</b></td>
+                    </tr>
+                    <tr>
+                        <td>/mnt</td>
+                        <td>/dev/sd<i>i</i>1</td>
+                        <td>Linux</td>
+                        <td>Remainder of teh device</td>
+                    </tr>
+                    <tr>
+                        <td>[SWAP]</td>
+                        <td>/dev/sd<i>i</i>2</td>
+                        <td>Linux swap(交换空间)</td>
+                        <td>More than 512MiB</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">UEFI With GPT</td>
+                    </tr>
+                    <tr>
+                        <td><b>Mount Point</b></td>
+                        <td><b>Partition</b></td>
+                        <td><b>Partition Type</b></td>
+                        <td><b>Suggested Size</b></td>
+                    </tr>
+                    <tr>
+                        <td>/mnt/boot Or /mnt/efi</td>
+                        <td>/dev/sd<i>x</i>1</td>
+                        <td>EFI system partition</td>
+                        <td>260-512MiB</td>
+                    </tr>
+                    <tr>
+                        <td>/mnt</td>
+                        <td>/dev/sd<i>x</i>2</td>
+                        <td>Linux x86-64 root(/)</td>
+                        <td>Remainder of teh device</td>
+                    </tr>
+                    <tr>
+                        <td>[SWAP]</td>
+                        <td>/dev/sd<i>i</i>3</td>
+                        <td>Linux swap(交换空间)</td>
+                        <td>More than 512MiB</td>
+                    </tr>
+                </table>
+                <li>格式化分区</li>
+                <code>
+                    $ mkfs.fat /dev/sdax    # 格式化EFI分区<br />
+                    $ mkfs.ext4 /dev/sdax   # 格式化根分区 <br />
+                    $ mkfswap /dev/sdax     # 格式化交换分区<br />
+                    $ swapon /dev/sdax      # 打开 swap 分区
+                </code>
+                <li>挂载分区</li>
+                <b>注意：挂载分区要按一定顺序，需要先挂载根分区</b>
+                <br />
+                <code>
+                    $ mount /dev/sdax /mnt  # 将根分区挂载到 /mnt <br />
+                    $ mkdir -p /mnt/boot/EFI <br />
+                    $ mount /dev/sdax /mnt/boot/EFI # 将EFI分区挂载到 /mnt/boot/EFI
+                </code>
+            </ul>
+            <li>安装基本系统</li>
+            <code>
+                $ pacstrap /mnt base base-devel linux linux-firmware <br />
+            </code>
+            <li>生成FSTAB</li>
+            <code>
+                $ genfstab -U /mnt >> /mnt/etc/fstab <br />
+            </code>
+            执行完后最好件检查一下生成的<strong>/mnt/etc/fstab</strong>文件是否正确。<br />
+            到这里我们的arch linux基本系统就安装完成了。 
+        </ol>
+        <h2>三、系统配置</h2>
+        <h3>1.基本配置</h3>
+        <ol type="a">
+
+        <li>chroot</li>
+        Change root到新安装的系统：<br />
+        <code>
+            $ arch-chroot /mnt
+        </code>
+        <li>设置时区</li>
+        一般格式：<br />
+        <code>
+            $ ln -sf /usr/share/zoneinfo/Region/City /etc/localtime <br />
+        </code>
+        中国用户可以使用下面这条命令：<br />
+        <code>
+            $ ln -sf /usr/share/zoneinfo/Asiz/Shanghai /etc/localtime <br />
+        </code>
+        <li>本地化</li>
+        本地化的程序与库若要本地化文本，都依赖 Locale ，后者明确规定地域、货币、时区日期的格式、字符排列方式和其他本地化标准等等。在下面两个文件设置：<strong>locale.gen</strong>与<strong>locale.conf</strong>。<br />
+        编辑<strong>/etc/locale.gen</strong>然后移除需要的地区的注释。接着执行<strong>locale-gen</strong>以生成locale讯息：<br />
+        <code>
+            $ locale-gen <br />
+        </code>
+        创建<strong>locale.conf</strong>并编辑：
+        <code>
+            /etc/locale.conf <br />
+            LANG=en_US.UTF-8
+        </code>
+
+        <li>网络</li>
+        <ul>
+            <li>创建<strong>hostname</strong></li>
+            <code>
+                echo <主机名> > /etc/hostname <br />
+            </code>
+            <li>添加对应的信息到<strong>hosts</strong>:</li>
+            <code>
+                /etc/hosts <br />
+                127.0.0.1       localhost <br />
+                ::1             localhost <br />
+                127.0.1.1       myhostname.localdomain  myhostname <br />
+            </code>
+            <li>无线网络连接</li>
+            <code>
+                $ pacman -S iw wpa_supplicant dialog <br />
+            </code>
+            <li>有线网络连接</li>
+            <code>
+                $ pacman -S dhcpcd <br />
+                $ systemctl start dhcpcd <br />
+                $ systemctl enable dhcpcd <br />
+            </code>
+        </ul>
+        <li>设置root密码</li>
+        <code>
+            $ passwd root <br />
+        </code>
+
+        <li>安装引导程序</li>
+        <code>
+            $ pacman -S grub efibootmgr <br />
+            $ grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=grub <br />
+            $ grub-mkconfig -o /boot/grub/grub.cfg <br />
+        </code>
+        <li>重启</li>
+        <code>
+            $ exit  # 退回 Live CD系统 <br />
+            $ umount -R /mnt    # 卸载分区 <br />
+            $ reboot    # 重启 <br />
+        </code>
+        </ol>
+            
+        
+        
+
+
+
+
+
+        <p>
+        在Arch Linux上安装yay
+        <br />
+        <code>
+            $ sudo pacman -S git go base-devel<br />
+            $ git clone https://aur.archlinux.org/yay.git<br />
+            $ cd yay<br />
+            $ makepkg -si<br />
+        </code>
+        如何使用yay:语法与pacman相同
+        </p>
+
+        <code>
+        pacman -Syy = apt update<br />
+        pacman -Syu = apt update && apt dist-upgrade<br />
+        pacman -S [PackageName] = apt insatll [PackageName]<br />
+        pacman -Sy [PackageName] = apt update && apt install [PackageName]<br />
+        pacman -R [PackageName] = apt remove [PackageName]<br />
+        pacman -Rs [PackageName] = apt remove [PackageName] && apt autoremove<br />
+        pacman -Scc = apt clean<br />
+        </code>
+            
+    </body>
+</html>
