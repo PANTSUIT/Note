@@ -370,9 +370,69 @@
                 <p>
                 安装核显驱动
                 </p>
-                    
+                <code>
+                    # pacman -S xf86-video-intel    # intel <br />
+                    # pacman -S xf86-video-ati      #amd
+                </code>
+                <p>
+                <li>输入设备驱动</li>
+                </p>
+                <code>
+                    # pacman -S xf86-input-libinput
+                </code>
+                <li>触摸板驱动</li>
+                <code>
+                    # pacman -S xf86-input-synaptics
+                </code>
+                <li>安装显示管理器</li>
+                <p>
+                KDE推荐使用SDDM作为显示管理器。
+                </p>
+                <code>
+                    # pacman -S sddm sddm-kcm <br />
+                    # systemctl enable sddm     # 设置sddm 自启动
+                </code>
+                <li>安装kde桌面</li>
+                <code>
+                    # pacman -S plasma kdebase
+                </code>
+                <p>
+                <strong>kdebase</strong>包括<strong>dolphin</strong>、<strong>kate</strong>、<strong>kdialog</strong>、<strong>keditbookmarks</strong>、<strong>kfind</strong>、<strong>khelpcenter</strong>、<strong>konquerror</strong>、<strong>konsole</strong>、<strong>kwrite</strong>，还可以安装<strong>kde-applications</strong>其包含的软件更多。
+                </p>
             </ul>
+            <li> 安装中文字体</li>
+            <code>
+                $ sudo pacman -S wqy-microhei wqy-microhei-lite wqy-bitmapfont wqy-zenhei ttf-arphic-ukai ttf-arphic-uming adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts
+            </code>
+            <p>
+            安装完成后，需退出重新登入。
+            </p>
+            <li>安装中文输入法</li>
+            <code>
+                $ sudo pacman -S fcitx fcitx-rime fcitx-im fcitx-configtool fcitx-sogoupinyin
+            </code>
+            <p>
+            配置输入法:
+            </p>
+            <code>
+                # vim /home/<username>/.xprofile <br />
+                <br />
+                export LANG=en_US.UTF-8 <br />
+                export LC_ALL=en_US.UTF-8 <br />
+                export GTK_IM_MODULE=fcitx <br />
+                export QT_IM_MODULE=fcitx <br />
+                export XMODIFIERS=@im=fcitx
+            </code>
+            
             <li>oh-my-zsh</li>
+            <p>
+            可使用curl或wget工具进行安装。
+            </p>
+            <code>
+                $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" <br />
+                or <br />
+                $ sh -c "$((wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+            </code>
         </ol>
         
         
