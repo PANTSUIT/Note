@@ -4,212 +4,200 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Life</title>
+    <title>AT89C51</title>
     <style>
+        body {
+            margin: 5%;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
         p {
             text-indent: 2em;
         }
 
-        p {
-            margin: 0cm 1cm 1cm 1cm;
-        }
-
-        div.outer {
-            border: 2px;
-        }
-
-        div.inner {
-            margin: 50px;
-        }
-
-        .table_align {
-            align-items: center;
-        }
-
-        .head_center {
+        table {
             text-align: center;
+            margin: auto;
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 500px;
         }
 
-        .table_date {
-            text-align: center;
-        }
-
-        .table_head {
+        td,
+        th {
+            border: 1px solid black;
             text-align: center;
         }
     </style>
 </head>
 
 <body>
-    <div class="outer">
-        <div class="inter">
-            <h1 class="head_center">51单片机</h1>
-            <hr>
-            <h2>一、简介</h2>
-            <p>
-                51单片机是对所有兼容Intel 8031指令系统的单片机的统称。该系列单片机的始祖是Intel的8004单片机，后来随着Flash rom技术的发展，8004单片机取得了长足的进展，成为应用最广泛的8位单片机之一，其代表型号是ATMEL公司的AT89系列，它广泛应用于工业测控系统之中。很多公司都有51系列的兼容机型推出，今后很长的一段时间内将占有大量市场。51单片机是基础入门的一个单片机，还是应用最广泛的一种。需要注意的是51系列的单片机一般不具备自编程能力。
-            </p>
-            <h2>二、特殊功能寄存器</h2>
+    <h1>51单片机</h1>
+    <hr>
+    <h2>一、简介</h2>
+    <p>
+        51单片机是对所有兼容Intel 8031指令系统的单片机的统称。该系列单片机的始祖是Intel的8004单片机，后来随着Flash rom技术的发展，8004单片机取得了长足的进展，成为应用最广泛的8位单片机之一，其代表型号是ATMEL公司的AT89系列，它广泛应用于工业测控系统之中。很多公司都有51系列的兼容机型推出，今后很长的一段时间内将占有大量市场。51单片机是基础入门的一个单片机，还是应用最广泛的一种。需要注意的是51系列的单片机一般不具备自编程能力。
+    </p>
+    <h2>二、特殊功能寄存器</h2>
 
-            <div class="table_align">
-                <table border="1">
-                    <caption>51单片机特殊功能寄存器</caption>
-                    <thead>
-                        <tr>
-                            <th class="head_center">寄存器名称</th>
-                            <th class="head_center">符号</th>
-                            <th class="head_center">地址</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="table_date">累加器A</td>
-                            <td class="table_date">A/ACC</td>
-                            <td class="table_date">E0H</td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">累加器B</td>
-                            <td class="table_date">B</td>
-                            <td class="table_date">F0H</td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">P0口</td>
-                            <td class="table_date">P0</td>
-                            <td class="table_date">80H</td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">堆栈指针</td>
-                            <td class="table_date">SP</td>
-                            <td class="table_date">81H</td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">数据指针低字节</td>
-                            <td class="table_date">DPL</td>
-                            <td class="table_date">82H</td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">数据指针高字节</td>
-                            <td class="table_date">DPH</td>
-                            <td class="table_date">83H</td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">定时/计数器控制寄存器</td>
-                            <td class="table_date">TCON</td>
-                            <td class="table_date">88H</td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">定时/计数器方式寄存器</td>
-                            <td class="table_date">TMOD</td>
-                            <td class="table_date">89H</td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">定时/计数器0低字节</td>
-                            <td class="table_date">TL0</td>
-                            <td class="table_date">8AH</td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">定时/计数器0高字节</td>
-                            <td class="table_date">TH0</td>
-                            <td class="table_date">8BH</td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">定时/计数器1低字节</td>
-                            <td class="table_date">TL1</td>
-                            <td class="table_date">8CH</td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">定时/计数器1高字节</td>
-                            <td class="table_date">TH1</td>
-                            <td class="table_date">8DH</td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">P1口</td>
-                            <td class="table_date">P1</td>
-                            <td class="table_date">90H</td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">电源控制</td>
-                            <td class="table_date">PCON</td>
-                            <td class="table_date">97H</td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">串行口控制</td>
-                            <td class="table_date">SCON</td>
-                            <td class="table_date">98H</td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">串行口数据</td>
-                            <td class="table_date">SBUF</td>
-                            <td class="table_date">99H</td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">P2口</td>
-                            <td class="table_date">P2</td>
-                            <td class="table_date">A0H</td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">中断允许控制寄存器</td>
-                            <td class="table_date">IE</td>
-                            <td class="table_date">A8H</td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">P3口</td>
-                            <td class="table_date">IP</td>
-                            <td class="table_date">B0H</td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">中断优先级控制</td>
-                            <td class="table_date">IP</td>
-                            <td class="table_date">B8H</td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">定时/计数器2控制寄存器</td>
-                            <td class="table_date">T2CON</td>
-                            <td class="table_date">C8H</td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">定时/计数器2重装低字节</td>
-                            <td class="table_date">RLDL</td>
-                            <td class="table_date">CAH</td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">定时/计数器2重装高字节</td>
-                            <td class="table_date">RLDH</td>
-                            <td class="table_date">CBH</td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">定时/计数器2低字节</td>
-                            <td class="table_date">TL2</td>
-                            <td class="table_date">CCH</td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">定时/计数器2高字节</td>
-                            <td class="table_date">TH2</td>
-                            <td class="table_date">CDH</td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table_date">程序状态寄存器</td>
-                            <td class="table_date">PSW</td>
-                            <td class="table_date">D0H</td>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    <table>
+        <caption>51单片机特殊功能寄存器</caption>
+        <thead>
+            <tr>
+                <th class="head_center">寄存器名称</th>
+                <th class="head_center">符号</th>
+                <th class="head_center">地址</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>累加器A</td>
+                <td>A/ACC</td>
+                <td>E0H</td>
+            </tr>
+            <tr>
+                <td>累加器B</td>
+                <td>B</td>
+                <td>F0H</td>
+            </tr>
+            <tr>
+                <td>P0口</td>
+                <td>P0</td>
+                <td>80H</td>
+            </tr>
+            <tr>
+                <td>堆栈指针</td>
+                <td>SP</td>
+                <td>81H</td>
+            </tr>
+            <tr>
+                <td>数据指针低字节</td>
+                <td>DPL</td>
+                <td>82H</td>
+            </tr>
+            <tr>
+                <td>数据指针高字节</td>
+                <td>DPH</td>
+                <td>83H</td>
+            </tr>
+            <tr>
+                <td>定时/计数器控制寄存器</td>
+                <td>TCON</td>
+                <td>88H</td>
+            </tr>
+            <tr>
+                <td>定时/计数器方式寄存器</td>
+                <td>TMOD</td>
+                <td>89H</td>
+            </tr>
+            <tr>
+                <td>定时/计数器0低字节</td>
+                <td>TL0</td>
+                <td>8AH</td>
+            </tr>
+            <tr>
+                <td>定时/计数器0高字节</td>
+                <td>TH0</td>
+                <td>8BH</td>
+            </tr>
+            <tr>
+                <td>定时/计数器1低字节</td>
+                <td>TL1</td>
+                <td>8CH</td>
+            </tr>
+            <tr>
+                <td>定时/计数器1高字节</td>
+                <td>TH1</td>
+                <td>8DH</td>
+            </tr>
+            <tr>
+                <td>P1口</td>
+                <td>P1</td>
+                <td>90H</td>
+            </tr>
+            <tr>
+                <td>电源控制</td>
+                <td>PCON</td>
+                <td>97H</td>
+                </td>
+            </tr>
+            <tr>
+                <td>串行口控制</td>
+                <td>SCON</td>
+                <td>98H</td>
+                </td>
+            </tr>
+            <tr>
+                <td>串行口数据</td>
+                <td>SBUF</td>
+                <td>99H</td>
+                </td>
+            </tr>
+            <tr>
+                <td>P2口</td>
+                <td>P2</td>
+                <td>A0H</td>
+                </td>
+            </tr>
+            <tr>
+                <td>中断允许控制寄存器</td>
+                <td>IE</td>
+                <td>A8H</td>
+                </td>
+            </tr>
+            <tr>
+                <td>P3口</td>
+                <td>IP</td>
+                <td>B0H</td>
+                </td>
+            </tr>
+            <tr>
+                <td>中断优先级控制</td>
+                <td>IP</td>
+                <td>B8H</td>
+                </td>
+            </tr>
+            <tr>
+                <td>定时/计数器2控制寄存器</td>
+                <td>T2CON</td>
+                <td>C8H</td>
+                </td>
+            </tr>
+            <tr>
+                <td>定时/计数器2重装低字节</td>
+                <td>RLDL</td>
+                <td>CAH</td>
+                </td>
+            </tr>
+            <tr>
+                <td>定时/计数器2重装高字节</td>
+                <td>RLDH</td>
+                <td>CBH</td>
+                </td>
+            </tr>
+            <tr>
+                <td>定时/计数器2低字节</td>
+                <td>TL2</td>
+                <td>CCH</td>
+                </td>
+            </tr>
+            <tr>
+                <td>定时/计数器2高字节</td>
+                <td>TH2</td>
+                <td>CDH</td>
+                </td>
+            </tr>
+            <tr>
+                <td>程序状态寄存器</td>
+                <td>PSW</td>
+                <td>D0H</td>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 
 </html>

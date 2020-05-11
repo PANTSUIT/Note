@@ -17,12 +17,8 @@
             margin: 5%;
         }
 
-        div.div_table {
-            margin: 0 auto;
-            width: 600px;
-        }
-
         table {
+            margin: 0 auto;
             border: 1px solid black;
             border-collapse: collapse;
         }
@@ -161,58 +157,56 @@
                 <li>一个根分区（挂载在根目录）<strong>/</strong>;</li>
                 <li>如果UEFI模式备启用，还需要一个EFI系统分区。
             </ol>
-            <div class="div_table">
-                <table>
-                    <tr>
-                        <th colspan="4">BIOS With MBR</th>
-                    </tr>
-                    <tr>
-                        <td><b>Mount Point</b></td>
-                        <td><b>Partition</b></td>
-                        <td><b>Partition Type</b></td>
-                        <td><b>Suggested Size</b></td>
-                    </tr>
-                    <tr>
-                        <td>/mnt</td>
-                        <td>/dev/sd<i>i</i>1</td>
-                        <td>Linux</td>
-                        <td>Remainder of teh device</td>
-                    </tr>
-                    <tr>
-                        <td>[SWAP]</td>
-                        <td>/dev/sd<i>i</i>2</td>
-                        <td>Linux swap(交换空间)</td>
-                        <td>More than 512MiB</td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">UEFI With GPT</td>
-                    </tr>
-                    <tr>
-                        <td><b>Mount Point</b></td>
-                        <td><b>Partition</b></td>
-                        <td><b>Partition Type</b></td>
-                        <td><b>Suggested Size</b></td>
-                    </tr>
-                    <tr>
-                        <td>/mnt/boot Or /mnt/efi</td>
-                        <td>/dev/sd<i>x</i>1</td>
-                        <td>EFI system partition</td>
-                        <td>260-512MiB</td>
-                    </tr>
-                    <tr>
-                        <td>/mnt</td>
-                        <td>/dev/sd<i>x</i>2</td>
-                        <td>Linux x86-64 root(/)</td>
-                        <td>Remainder of teh device</td>
-                    </tr>
-                    <tr>
-                        <td>[SWAP]</td>
-                        <td>/dev/sd<i>i</i>3</td>
-                        <td>Linux swap(交换空间)</td>
-                        <td>More than 512MiB</td>
-                    </tr>
-                </table>
-            </div>
+            <table>
+                <tr>
+                    <th colspan="4">BIOS With MBR</th>
+                </tr>
+                <tr>
+                    <td><b>Mount Point</b></td>
+                    <td><b>Partition</b></td>
+                    <td><b>Partition Type</b></td>
+                    <td><b>Suggested Size</b></td>
+                </tr>
+                <tr>
+                    <td>/mnt</td>
+                    <td>/dev/sd<i>i</i>1</td>
+                    <td>Linux</td>
+                    <td>Remainder of teh device</td>
+                </tr>
+                <tr>
+                    <td>[SWAP]</td>
+                    <td>/dev/sd<i>i</i>2</td>
+                    <td>Linux swap(交换空间)</td>
+                    <td>More than 512MiB</td>
+                </tr>
+                <tr>
+                    <td colspan="4">UEFI With GPT</td>
+                </tr>
+                <tr>
+                    <td><b>Mount Point</b></td>
+                    <td><b>Partition</b></td>
+                    <td><b>Partition Type</b></td>
+                    <td><b>Suggested Size</b></td>
+                </tr>
+                <tr>
+                    <td>/mnt/boot Or /mnt/efi</td>
+                    <td>/dev/sd<i>x</i>1</td>
+                    <td>EFI system partition</td>
+                    <td>260-512MiB</td>
+                </tr>
+                <tr>
+                    <td>/mnt</td>
+                    <td>/dev/sd<i>x</i>2</td>
+                    <td>Linux x86-64 root(/)</td>
+                    <td>Remainder of teh device</td>
+                </tr>
+                <tr>
+                    <td>[SWAP]</td>
+                    <td>/dev/sd<i>i</i>3</td>
+                    <td>Linux swap(交换空间)</td>
+                    <td>More than 512MiB</td>
+                </tr>
+            </table>
             <li>格式化分区</li>
             <code>
                 # mkfs.fat /dev/sdax # 格式化EFI分区<br />

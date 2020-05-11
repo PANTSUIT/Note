@@ -1,227 +1,235 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>STM32F10X</title>
-        <style>
-            body{margin: 5%;}
-            h1
-            {
-                text-align: center;
-            }
-            p   
-            {
-                margin: 2%;
-                text-indent: 2em;
-            }
-            .div_table,.div_picture,.div_text
-            {
-                text-align: center;
-            }
-            table
-            {
-                border: 1px solid black;
-                border-collapse: collapse;
-            }
-            th,td
-            {
-                text-align: center;
-                border: 1px solid black;
-            }
-            ol
-            {
-                margin: 2%;
-                border-color: whitesmoke;
-                background-color: whitesmoke;
-            }
-            red_font
-            {
-                text-decoration-color: red;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>STM32F10X</h1>
-        <h2>基于标准外设库的开发</h2>
-        <hr />
-        <h3><i>1：STM32F10xxx标准外设库概述</i></h3>
-        <p>
-            STM32标准外设库之前的版本也称为固件函数库或固件库（即操作片外固件的代码的集合），是一个固件函数包，他有程序、数据结构和宏组成，包括了微控制器所有外设的性能特征。该函数库还包括每一个外设的驱动描述和应用实例，为开发者访问底层硬件提供了一个中间<b>API</b>，通过使用固件函数库，无需深入掌握底层硬件细节，开发者就可以轻松应用每一个外设。因此，使用固态函数库可以大大减少用户的程序编写时间，进而降低开发成本。每个外设驱动都有一组函数组成，这组函数覆盖了该外设所有功能。每个器件的开发都有一个通用API（application programming interface 应用编程界面）驱动，API对该驱动程序的结构，函数和参数名都进行了标准化，顺便提一句，arduino之所以入门容易，开发简单，就是应为我们很多时候是要“面向固件库编程”，很多复杂的外设操作都通过简单的API调用就完成了。
-        </p>
-        <h3><i>2:使用标准外设库开发的优势</i></h3>
-        <p>
-            使用标准外设库进行开发的最大优势就在于可以使开发者不用深入了解底层硬件细节就可以灵活规范的使用每一个外设。标准外设库覆盖了从GPIO到定时器，再到CAN、I2C、SPI、UART和ADC等等的所有标准外设。对应的C源代码知识用了最基本的C编程的知识，所有代码经过严格测试，易于理解和使用，并配有完整的文档，非常方便进行二次开发和应用。
-        </p>
-        <h3><i>3：STM32F10xxx标准外设库体系结构</i></h3>
-        <div class="div_picture">
-            <img src="E:\Myhome\stm32f10x\picture\peripheral_lib_architecture.png" alt="STM32F10XXX标准外设库体系结构" />
-        </div>
+
+<head>
+    <meta charset="utf-8" />
+    <title>STM32F10X</title>
+    <style>
+        body {
+            margin: 5%;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        p {
+            margin: 2%;
+            text-indent: 2em;
+        }
+
+        .div_table,
+        .div_picture,
+        .div_text {
+            text-align: center;
+        }
+
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            text-align: center;
+            border: 1px solid black;
+        }
+
+        ol {
+            margin: 2%;
+            border-color: whitesmoke;
+            background-color: whitesmoke;
+        }
+
+        red_font {
+            text-decoration-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>STM32F10X</h1>
+    <h2>基于标准外设库的开发</h2>
+    <hr />
+    <h3><i>1：STM32F10xxx标准外设库概述</i></h3>
+    <p>
+        STM32标准外设库之前的版本也称为固件函数库或固件库（即操作片外固件的代码的集合），是一个固件函数包，他有程序、数据结构和宏组成，包括了微控制器所有外设的性能特征。该函数库还包括每一个外设的驱动描述和应用实例，为开发者访问底层硬件提供了一个中间<b>API</b>，通过使用固件函数库，无需深入掌握底层硬件细节，开发者就可以轻松应用每一个外设。因此，使用固态函数库可以大大减少用户的程序编写时间，进而降低开发成本。每个外设驱动都有一组函数组成，这组函数覆盖了该外设所有功能。每个器件的开发都有一个通用API（application programming interface 应用编程界面）驱动，API对该驱动程序的结构，函数和参数名都进行了标准化，顺便提一句，arduino之所以入门容易，开发简单，就是应为我们很多时候是要“面向固件库编程”，很多复杂的外设操作都通过简单的API调用就完成了。
+    </p>
+    <h3><i>2:使用标准外设库开发的优势</i></h3>
+    <p>
+        使用标准外设库进行开发的最大优势就在于可以使开发者不用深入了解底层硬件细节就可以灵活规范的使用每一个外设。标准外设库覆盖了从GPIO到定时器，再到CAN、I2C、SPI、UART和ADC等等的所有标准外设。对应的C源代码知识用了最基本的C编程的知识，所有代码经过严格测试，易于理解和使用，并配有完整的文档，非常方便进行二次开发和应用。
+    </p>
+    <h3><i>3：STM32F10xxx标准外设库体系结构</i></h3>
+    <div class="div_picture">
+        <img src="./picture/peripheral_lib_architecture.png" alt="STM32F10XXX标准外设库体系结构" />
+    </div>
+    <br />
+    <div class="div_table">
+        <table>
+            <thead>
+                <th>文件名</th>
+                <th>功能描述</th>
+                <th>具体功能说明</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>core_cm3.h<br>core_cm3.c</td>
+                    <td>Cotex-M3内核及其设备文件</td>
+                    <td>
+                        访问Cortex-M3内核及其设备：NVIC，SysTick等<br />
+                        访问Cortex-M3的寄存器和内核外设函数
+                    </td>
+                </tr>
+                <tr>
+                    <td>stm32f10x.h</td>
+                    <td>微控制器专用头文件</td>
+                    <td>这个文件包含了STM32F10x全系列所有外设寄存器的定义（寄存器的基地址和布局）、位定义、中断向量表、存储空间的地址映射等</td>
+                </tr>
+                <tr>
+                    <td>
+                        system_stm32f10x.h<br />
+                        system_stm32f10x.c
+                    </td>
+                    <td>
+                        微控制器专用系统文件
+                    </td>
+                    <td>
+                        包括两个函数和一个全局变量 <br />
+                        SystemInit:设置系统时钟，在启动或复位后、调用main函数之前执行<br />
+                        SystemCoreClockUpdate: 更新变量SystemCoreClock的值，只在时钟发生改变的时候执行<br />
+                        SystemCoreClock:The core Clock（HCLK）；
+                    </td>
+                </tr>
+                <tr>
+                    <td>start_stm32f10x_Xd.s</td>
+                    <td>编译器启动代码</td>
+                    <td>
+                        微控制器专用的中断处理程序列表（与头文件一致）<br />
+                        弱定义（Weak）的中断处理程序默认函数（可以被用户代码覆盖）该文件与编译器相关
+                    </td>
+                </tr>
+                <tr>
+                    <td>stm32f10x_conf.h</td>
+                    <td>固件库配置文件</td>
+                    <td>通过更改包含的外设头文件来选择固件库所使用的外设，在新建程序和进行功能变更之前应当首先更改对应的配置</td>
+                </tr>
+                <tr>
+                    <td>
+                        stm32f10x_it.h<br />
+                        stm32f10x_it.c
+                    </td>
+                    <td>外设中断函数文件</td>
+                    <td>用户可以相应的加入自己的中断程序代码，对于指向同一个中断向量的多个不同中断请求，用户可以通过判断外设的中断标志位来确定准确的中断源，执行相应的中断服务函数</td>
+                </tr>
+                <tr>
+                    <td>
+                        stm32f10x_ppp.h<br />
+                        stm32f10x_ppp.c
+                    </td>
+                    <td>外设驱动函数文件</td>
+                    <td>包括了相关外设的初始化配置和部分功能应用函数，这部分是进行编程功能实现的重要组成部分。</td>
+                </tr>
+                <tr>
+                    <td>
+                        Application.c<br />
+                        Application.h
+                    </td>
+                    <td>用户文件</td>
+                    <td>用户程序文件，通过标准外设库提供的接口进行相应的外设配置和功能设计。</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h3><i>4:基于CMSIS标准的软件架构</i></h3>
+    <div class="div_picture">
+        <img src="./picture/cmsis_architecture.png" alt="CMSIS标准软件架构" />
         <br />
-        <div class="div_table">
-            <table>
-                <thead>
-                    <th>文件名</th>
-                    <th>功能描述</th>
-                    <th>具体功能说明</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>core_cm3.h<br>core_cm3.c</td>
-                        <td>Cotex-M3内核及其设备文件</td>
-                        <td>
-                            访问Cortex-M3内核及其设备：NVIC，SysTick等<br />
-                            访问Cortex-M3的寄存器和内核外设函数
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>stm32f10x.h</td>
-                        <td>微控制器专用头文件</td>
-                        <td>这个文件包含了STM32F10x全系列所有外设寄存器的定义（寄存器的基地址和布局）、位定义、中断向量表、存储空间的地址映射等</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            system_stm32f10x.h<br />
-                            system_stm32f10x.c
-                        </td>
-                        <td>
-                            微控制器专用系统文件
-                        </td>
-                        <td>
-                            包括两个函数和一个全局变量 <br />
-                            SystemInit:设置系统时钟，在启动或复位后、调用main函数之前执行<br />
-                            SystemCoreClockUpdate: 更新变量SystemCoreClock的值，只在时钟发生改变的时候执行<br />
-                            SystemCoreClock:The core Clock（HCLK）；
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>start_stm32f10x_Xd.s</td>
-                        <td>编译器启动代码</td>
-                        <td>   
-                            微控制器专用的中断处理程序列表（与头文件一致）<br />
-                            弱定义（Weak）的中断处理程序默认函数（可以被用户代码覆盖）该文件与编译器相关
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>stm32f10x_conf.h</td>
-                        <td>固件库配置文件</td>
-                        <td>通过更改包含的外设头文件来选择固件库所使用的外设，在新建程序和进行功能变更之前应当首先更改对应的配置</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            stm32f10x_it.h<br />
-                            stm32f10x_it.c
-                        </td>
-                        <td>外设中断函数文件</td>
-                        <td>用户可以相应的加入自己的中断程序代码，对于指向同一个中断向量的多个不同中断请求，用户可以通过判断外设的中断标志位来确定准确的中断源，执行相应的中断服务函数</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            stm32f10x_ppp.h<br />
-                            stm32f10x_ppp.c
-                        </td>
-                        <td>外设驱动函数文件</td>
-                        <td>包括了相关外设的初始化配置和部分功能应用函数，这部分是进行编程功能实现的重要组成部分。</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Application.c<br />
-                            Application.h
-                        </td>
-                        <td>用户文件</td>
-                        <td>用户程序文件，通过标准外设库提供的接口进行相应的外设配置和功能设计。</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <h3><i>4:基于CMSIS标准的软件架构</i></h3>
-        <div class="div_picture">
-            <img src="E:\Myhome\stm32f10x\picture\cmsis_architecture.png" alt="CMSIS标准软件架构"/ >
-            <br />
-            <caption>CMSIS标准软件架构</caption>
-        </div>
-        <p>
-            基于CMSIS标准的软件架构（或者叫固件库架构）主要分为以下四层
-            <ol>
-                <li>用户应用层</li>
-                <li>操作系统及中间件接口哦层</li>
-                <li>CMSIS层：CMSIS层起着承上启下的作用
-                    <ol type="a">
-                        <li>一方面该层对硬件寄存器层进行统一实现，屏蔽了不同厂商对Cortex-M系列微处理器核内外寄存器的不同定义</li>
-                        <li>另一方面有向上层的操作系统及中间件接口层和应用层提供接口，简化了应用程序开发难度，是开发人员能够在完全透明的情况下进行应用程序开发。也正是如此，CMSIS层的实现相对复杂。</li>
-                    </ol>
-                </li>
-                <li>硬件寄存器层</li>
-            </ol>
-        </p>
-        <h3><i>5:使用方式</i></h3>
-        <p>
-            在实际开发过程中，根据应用程序的需要可以采取2种方法使用标准外设库（StdPeriph_Lib）
-        </p>
-        <ol type="1">
-            <li>使用外设驱动：这时应用程序开发基于外设驱动的API（应用编程接口）。用户只需要配置文件"stm32f10x_conf.h"，并使用相应的文件例如"stm32f10x_ppp.h/.c"即可</li>
-            <li>不使用外设驱动：这时应用程序开发基于外设的寄存器结构和位定义文件（需要了解单片机的大量硬件、引脚细节）</li>
+        <caption>CMSIS标准软件架构</caption>
+    </div>
+    <p>
+        基于CMSIS标准的软件架构（或者叫固件库架构）主要分为以下四层
+        <ol>
+            <li>用户应用层</li>
+            <li>操作系统及中间件接口哦层</li>
+            <li>CMSIS层：CMSIS层起着承上启下的作用
+                <ol type="a">
+                    <li>一方面该层对硬件寄存器层进行统一实现，屏蔽了不同厂商对Cortex-M系列微处理器核内外寄存器的不同定义</li>
+                    <li>另一方面有向上层的操作系统及中间件接口层和应用层提供接口，简化了应用程序开发难度，是开发人员能够在完全透明的情况下进行应用程序开发。也正是如此，CMSIS层的实现相对复杂。</li>
+                </ol>
+            </li>
+            <li>硬件寄存器层</li>
         </ol>
-        <p>
-            标准外设库（StdPeriph_Lib）支持STM32F10XXX系列全部成员：大容量、中容量和小容量产品，实际开发中根据使用的STM32产品具体型号，用户可以通过文件"stm32f10x.h"中的预处理define或者通过开发环境中的全局设置来配置标准外设库（StdPeriph_Lib），一个define对应一个产品系列。
-            <ol type="i">
-                <li>STM32F10x_LD:STM32小容量产品</li>
-                <li>STM32F10x_MD:STM32中容量产品</li>
-                <li>STM32F10x_HD:STM32大容量产品</li>
-            </ol>
-        </p>
-        <h3><i>6：库函数命名规范</i></h3>
-        <p>
-            标准外设库中的主要外设均采用了缩写的形式，通过这些缩写可以很容易的辨认对应的外设。
-        </p>
-        <div class="div_table">
-            <table>
-                <thead>
-                    <th>缩写</th>
-                    <th>外设/单元</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>ADC</td>
-                        <td>模数转换器</td>
-                    </tr>
-                    <tr>
-                        <td>BKP</td>
-                        <td>备份寄存器</td>
-                    </tr>
-                    <tr>
-                        <td>CAN</td>
-                        <td>控制器局域网模块</td>
-                    </tr>
-                    <tr>
-                        <td>CEC</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>CRC</td>
-                        <td>CRC计算单元</td>
-                    </tr>
-                    <tr>
-                        <td>DAC</td>
-                        <td>数模转换器</td>
-                    </tr>
-                    <tr>
-                        <td>DBGMCU</td>
-                        <td>调试支持</td>
-                    </tr>
-                    <tr>
-                        <td>DMA</td>
-                        <td>直接内存存取控制器</td>
-                    </tr>
-                    <tr>
-                        <td>EXTI</td>
-                        <td>外部中断事件控制器</td>
-                    </tr>
-                    <tr>
-                        <td>FLASH</td>
-                        
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </body>
+    </p>
+    <h3><i>5:使用方式</i></h3>
+    <p>
+        在实际开发过程中，根据应用程序的需要可以采取2种方法使用标准外设库（StdPeriph_Lib）
+    </p>
+    <ol type="1">
+        <li>使用外设驱动：这时应用程序开发基于外设驱动的API（应用编程接口）。用户只需要配置文件"stm32f10x_conf.h"，并使用相应的文件例如"stm32f10x_ppp.h/.c"即可</li>
+        <li>不使用外设驱动：这时应用程序开发基于外设的寄存器结构和位定义文件（需要了解单片机的大量硬件、引脚细节）</li>
+    </ol>
+    <p>
+        标准外设库（StdPeriph_Lib）支持STM32F10XXX系列全部成员：大容量、中容量和小容量产品，实际开发中根据使用的STM32产品具体型号，用户可以通过文件"stm32f10x.h"中的预处理define或者通过开发环境中的全局设置来配置标准外设库（StdPeriph_Lib），一个define对应一个产品系列。
+        <ol type="i">
+            <li>STM32F10x_LD:STM32小容量产品</li>
+            <li>STM32F10x_MD:STM32中容量产品</li>
+            <li>STM32F10x_HD:STM32大容量产品</li>
+        </ol>
+    </p>
+    <h3><i>6：库函数命名规范</i></h3>
+    <p>
+        标准外设库中的主要外设均采用了缩写的形式，通过这些缩写可以很容易的辨认对应的外设。
+    </p>
+    <div class="div_table">
+        <table>
+            <thead>
+                <th>缩写</th>
+                <th>外设/单元</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ADC</td>
+                    <td>模数转换器</td>
+                </tr>
+                <tr>
+                    <td>BKP</td>
+                    <td>备份寄存器</td>
+                </tr>
+                <tr>
+                    <td>CAN</td>
+                    <td>控制器局域网模块</td>
+                </tr>
+                <tr>
+                    <td>CEC</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>CRC</td>
+                    <td>CRC计算单元</td>
+                </tr>
+                <tr>
+                    <td>DAC</td>
+                    <td>数模转换器</td>
+                </tr>
+                <tr>
+                    <td>DBGMCU</td>
+                    <td>调试支持</td>
+                </tr>
+                <tr>
+                    <td>DMA</td>
+                    <td>直接内存存取控制器</td>
+                </tr>
+                <tr>
+                    <td>EXTI</td>
+                    <td>外部中断事件控制器</td>
+                </tr>
+                <tr>
+                    <td>FLASH</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
 </html>
