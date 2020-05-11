@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>VHDL</title>
+    <style type="text/css">
+        p.indent {
+            text-indent: 2em;
+        }
+
+        body {
+            margin: 5%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>VHDL</h1>
+    <hr>
+
+    <p>VHDL有以下5个部分组成</p>
+
+    <ol>
+        <li>
+            LIBRARY(库):调用库，一般调用IEEE，也可以调用给用户自定义库，雷士与 Verilog中的 #include。library x 可以用来调用x.vhd， use 可以调用 x.vhd 中调用的包。
+        </li>
+        <li> PACKAGE(包):包含了库之后就可以调用库中的包，在VHDL用package y可以定义y作为一个包来调用。LIBRARY和PACKAGE为相互配合使用。 </li>
+        <li>
+            ENTITY(实体):声明本设计中的接口引脚、接口方向、接口类型。其格式为entity x。
+        </li>
+        <li>
+            ARCHITECTUR(构造体):程序中的主要部分，定义了实体实现过程，是电路的具体描述。一个构造体中应该包括声明部分(不一定要有)和代码部分。声明部分主要用于声明信号和常量，代码部分用于描述行为。构造体用于实现实体，故其格式为 ARCHITECTURE y OF 想。
+        </li>
+        <li>
+            CONFIGRATIONI(配置):用于描述层与层之间的连接关系以及实体与z构造体之间的关系，可以用来选择不同的构造体来实现实体，用于对比试验。其格式为 CONFIGRATIONI z OF x IS ...y...;
+        </li>
+    </ol>
+</body>
+
+</html>
