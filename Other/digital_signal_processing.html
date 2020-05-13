@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Digital Signal Processing</title>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                <!--$表示行内元素，$$表示块状元素 -->
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                processEscapes: true
+                },
+                "HTML-CSS": { availableFonts: ["TeX"] }
+                });
+    </script>
+    <!--加载MathJax的最新文件， async表示异步加载进来 -->
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js">
+    </script>
+
+    <style>
+        body {
+            margin: 5%;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.0em;
+        }
+
+        h2 {
+            font-size: 1.8em;
+        }
+
+        h3 {
+            font-size: 1.6em;
+        }
+
+        h4 {
+            font-size: 1.4em;
+        }
+
+        h5 {
+            font-size: 1.2em;
+        }
+
+        h6 {
+            font-size: 1em;
+        }
+
+        span.blue {
+            color: blue;
+            ;
+        }
+
+        p.indent {
+            text-indent: 2em;
+        }
+
+        ul.list_horizontal {
+            list-style-type: none;
+        }
+
+        ul.list_horizontal li {
+            display: inline;
+        }
+
+        ul,
+        ol {
+            margin-left: 2em;
+            padding-left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>数字信号处理</h1>
+    <hr />
+
+    <h2>绪论</h2>
+    <h3>基本概念</h3>
+    <h4>信号</h4>
+    <ol>
+        <li>概念:信息的物理表现方式/传递信息的<span class="blue">函数</span> </li>
+        <ul>
+            <li>一维信号：函数中只有一个独立变量</li>
+            <ul>
+                <li>语音信号、温度信号等</li>
+            </ul>
+            <li>二维信号：函数有两个独立变量表示</li>
+            <ul>
+                <li>一幅黑白图像：空间坐标</li>
+            </ul>
+            <li>多维信号：函数有多个独里变量表示</li>
+            <ul>
+                <li>一幅彩色图像：空间坐标+彩色分量</li>
+                <li>视频序列：空间坐标+时间分量</li>
+            </ul>
+        </ul>
+        <li>分类</li>
+        <ul>
+            <li>周期信号/非周期信号</li>
+            <li>确定信号/随机信号</li>
+            <li>连续信号（模拟信号）/时域离散信号/幅度离散信号/数字信号</li>
+        </ul>
+    </ol>
+    <h4>系统</h4>
+    <ol>
+        <li>概念:将信号进行处理（或变换），以达到人们要求的各种设备。</li>
+        <li>分类</li>
+        <ul>
+            <li>连续信号(模拟信号)系统</li>
+            <li>时域离散信号系统</li>
+            <li>幅度离散信号系统</li>
+            <li>数字信号系统</li>
+        </ul>
+    </ol>
+    <h4>信号处理</h4>
+    <ol>
+        <li>研究用<span class="blue">系统</span>对含有信息的信号进行处理（变换），获得人们所希望的信号，提取信息，便于利用的一门学科</li>
+        <li>内容</li>
+        <ul class="list_horizontal">
+            <li><span class="blue">滤波</span></li>
+            <li><span class="blue">变换</span></li>
+            <li><span class="blue">分析</span></li>
+            <li><span class="blue">估值</span></li>
+            <li><span class="blue">检测</span></li>
+            <li><span class="blue">压缩</span></li>
+            <li><span class="blue">识别</span></li>
+        </ul>
+        <li>分类</li>
+        <ul>
+            <li>模拟信号处理：模拟器件</li>
+            <li>数字信号处理(DSP):数值计算</li>
+        </ul>
+    </ol>
+    <h4>数字信号处理</h4>
+    <ol>
+        <li>概念：利用数字计算机或专用数字（集成）电路按预定规则对数字信号进行<span class="blue">数值运算</span></li>
+    </ol>
+    <h4>DSP的实现方法</h4>
+    <ul>
+        <li>软件实现方法</li>
+        <ul>
+            <li>缺点：运算速度慢，达不到实时</li>
+        </ul>
+        <li>硬件实现法</li>
+        <ul>
+            <li>缺点：不灵活</li>
+        </ul>
+        <li>软硬结合法</li>
+        <ul>
+            <li>特点：既灵活有快速，工程技术领域中的主要实现方法。</li>
+        </ul>
+    </ul>
+
+    <h2>数字信号的表示和分析工具</h2>
+    <h3>第一章</h3>
+    <h4>1.1 时域离散信号</h4>
+    <h5>序列</h5>
+    <ol>
+        <li>定义:对模拟信号$x_a(t)$进行等间隔采样，采样间隔为T，得到离散时间信号（序列）</li>
+        <p>
+            $$
+            x(n)=x_a(t)\mid_{t=nT}=x_a(nT) , -\infty &lt n &lt \infty
+            $$
+        </p>
+        <li>表示方式 </li>
+        <ul>
+            <li>集合表示:</li>
+            $$
+            x(n)=\{ \dots 1,3,2.5,3.3,1.9,0,4.1 \dots \}
+            $$
+            <li>公式表示:</li>
+            $$
+            x(n)=x_a(nT), -\infty &lt n &lt +\infty \\
+            x(n)=x_a(t)\mid_{t=nT}=0.9sin(50 \pi nT)
+            $$
+            <li>图形表示:</li>
+        </ul>
+        <li>常用的典型序列</li>
+        <ul>
+            <li>单位采样序列</li>
+            <p>
+                $$
+                \delta(n)=
+                \right \{
+                1 , n=0 \\
+                0 , n != 0
+                \left.
+                $$
+            </p>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </ol>
+
+
+    <h2>数字滤波器的设计</h2>
+
+</body>
+
+</html>
