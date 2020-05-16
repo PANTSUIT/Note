@@ -190,19 +190,138 @@
             <p>
                 $$
                 \delta(n)=
-                \right \{
-                1 , n=0 \\
-                0 , n != 0
-                \left.
+                \begin{cases}
+                1 ,\text{$n=0$} \\
+                0 , \text{$n \neq 0$}
+                \end{cases}
+                $$
+                特点：仅在 $n=0$时取值为1，其他均为零。
+            </p>
+            <li>单位阶跃序列</li>
+            <p>
+                $$
+                u(n)=
+                \begin{cases}
+                1, & \text{ $n \geq 4$} \\
+                0, & \text{ $n &lt 0$}
+                \end{cases}
+                $$
+                与单位采样序列的关系：
+                $$
+                \begin{aligned}
+                & \delta(n)=u(n)-u(n-1) \\
+                u(n)
+                & = \sum_{k=0}^{\infty} \delta(n) + \delta(n-1) + \delta(n-2) + \cdots \\
+                & = \sum_{m=- \infty}^{n} \delta(m) , \quad \text{令 $n-k=m$}
+                \end{aligned}
                 $$
             </p>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>矩形序列 </li>
+            <p>
+                $$
+                R_N(n)=
+                \begin{cases}
+                1, & \text{$ 0 \leq n \leq N-1$} \\
+                0, & \text{其他 $n$}
+                \end{cases}
+                $$
+                与其他序列的关系：
+                $$
+                R_N(n)=u(n)-u(n-N) \\
+                R_N(n)=\sum_{m=0}^{N-1} \delta(n-m) = \delta(n) + \delta(n-1) + \cdots+ \delta[n-(N-1)]
+                $$
+            </p>
+            <li>实指数序列</li>
+            <p>
+                $$
+                \begin{aligned}
+                & x(n)=a^n u(n), \text{$a$为实数} \\
+                & \mid a \mid &lt , \text{$x(n)$的幅度随$n$的增大而减小（收敛）} \\
+                & \mid a \mid &gt , \text{发散}
+                \end{aligned}
+                $$
+            </p>
+            <li>正弦序列</li>
+            <p>
+                $$
+                x(n)=sin(\omega n)
+                $$
+                若正弦序列是由模拟正弦信号采样得到，则：
+                $$
+                \begin{aligned}
+                & x_a(t)=sin(\Omega t) \\
+                & x_a(t)\mid_{t=nT}=sin(\Omega nT) \\
+                & x(n))=sin(\omega n)
+                \end{aligned}
+                $$
+                数字频率 $\omega$ 与模拟角频率 $\Omega$关系：
+                $$
+                \omega = \Omega T \\
+                \omega = \frac{\Omega}{F_s}
+                $$
+                其中：
+                $$
+                \begin{aligned}
+                & \omega : 数字角频率 \\
+                & \Omega : 模拟角频率 \\
+                & T : 采样间隔/周期 \\
+                & F_s : 采样频率
+                \end{aligned}
+                $$
+            </p>
+
+            <li>复指数序列</li>
+            <p>
+                $$
+                \begin{aligned}
+                x(n)& =e^{(\sigma + j \omega_0)n} = e^{\sigma n} \cdot e^{j \omega_0 n} \\
+                & = e^{\sigma n} cos(\omega_0 n) + je^{\sigma n} sin(\omega_0 n) \\
+                & -其中 \omega_0 为数字域角频率
+                \end{aligned}
+                $$
+                $$
+                \begin{aligned}
+                & e^{j \omega_0 n} = cos (\omega_0 n) + j sin(\omega n) \\
+                e^{j(\omega_0 + 2 \pi M)n} & =cos[(\omega_0 2 \pi M)n] + j sin[(\omega_0 + 2 \pi M)n] \\
+                & = cos(\omega_0 n) + j sin(\omega_0 n) = e^ {j \omega_0 n}
+                \end{aligned}
+                $$
+                欧拉公式：
+                $$
+                \begin{aligned}
+                e^{j \omega} & = cos \omega + jsin \omega \\
+                \Rightarrow \quad & e^{j \omega} + e^{-j \omega} = 2 cos \omega \\
+                & e^{j \omega} - e^{-j \omega}= 2jsin \omega
+                \end{aligned}
+                $$
+                正弦序列和复指数序列均已 $2 \pi$ 为周期，频率与分析是只研究主值区间即可。
+            </p>
+
+            <li>周期序列</li>
+            <p>
+                如果对于所有 $n$ 村子啊一个最小的正整数 N ，满足：
+                $$
+                x(n)=x(n+N) \quad \text{$-\infty &lt n &lt n +\infty$}
+                $$
+                则称序列 $x(n)$ 是周期序列，周期为 N 。
+                例：
+                $$
+                x(n) = sin(\frac{\pi}{4}n) \\
+                \omega = \frac{\pi}{4}
+                $$
+                由于 $n$ 取整数，则：
+                $$
+                x(n)=sin(\frac{\pi}{4}(n+8)) \quad \text{$x(n)$ 是周期为8 的周期序列}
+                $$
+            </p>
+            <li>有限长任意序列</li>
+            <p>
+                $x(n)$ 可以表示成单位采样序列的移位加权和，也可以表示成与单位采样序列的卷积和。
+                $$
+                x(n)= \sum_{m=-\infty}^{\infty} x(m) \delta(n-m) = x(n)* \delta(n)
+                $$
+
+            </p>
         </ul>
     </ol>
 
