@@ -1,0 +1,47 @@
+body {
+    margin: auto;
+    padding: 0;
+    width: 80%;
+    background-color: #ffffff;
+}
+
+h1 {
+    text-align: center;
+}
+
+header {
+    border-radius: 5px;
+    background-color: #1f1f1f;
+
+}
+
+header h1 {
+    color: #dddddd;
+}
+
+nav {
+    background-color: #dddddd;
+    width: 80%;
+}
+
+nav ul li {
+    background-color: #dddddd;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 80px;
+    display: inline;
+    float: left;
+
+}
+
+
+section {}
+
+article {}
+
+aside {}
+
+footer {
+    text-align: center;
+}
