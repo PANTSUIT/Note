@@ -1,7 +1,7 @@
 body {
     margin: auto;
     padding: 0;
-    width: 80%;
+    width: 95%;
     background-color: #ffffff;
 }
 
@@ -12,7 +12,6 @@ h1 {
 header {
     border-radius: 5px;
     background-color: #1f1f1f;
-
 }
 
 header h1 {
@@ -32,16 +31,31 @@ nav ul li {
     width: 80px;
     display: inline;
     float: left;
-
 }
 
 
-section {}
+section {
 
-article {}
+}
 
-aside {}
+article {
+
+}
+
+aside {
+
+}
 
 footer {
     text-align: center;
+}
+
+code {
+    margin: auto;
+    padding:auto;
+    white-space: pre-wrap;
+}
+
+p{
+    text-indent: 2em;
 }

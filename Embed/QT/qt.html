@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>QT Study</title>
+        <link rel="stylesheet" href="../../css/style.css">
+    </head>
+    <body>
+        <header>
+            <h1>Qt study record</h1>
+        </header>
+
+        <h3>项目文件组成</h3>
+        <ul>
+            <li>项目管理文件：后缀为 .pro 的文件是项目的管理文件，文件名就是项目的名称,如project.pro。类容如下
+                <br />
+                <code>
+                    Qt += core gui
+                    greateThan(Qt_MAJOR_VERSION,4): Qt += widgets
+
+                    TARGET = samp2_1
+                    TEMPLATE = app
+                    SOURCES += main.cpp \
+                                widget.cpp
+                    HEADERS += widget.h
+                    FORMS += widget.ui
+                </code>
+            </li>
+            <li>
+                界面文件：后缀为 .ui 的文件是可视化设计的窗体的定义文件，如 widget.ui,该文件在编译后会生成一个文件ui_widget.h
+                <br />
+                ui_widget.h文件主要做了一下工作：
+                <ol>
+                    <li>定义了一个类Ui_Widget,用于封装可视化设计的界面</li>
+                    <li>自动生成了界面各个组件的类成员变量定义。</li>
+                    <li>定义了setupUi()函数，这个函数用于创建各个界面组件，并设置其位置、大小、文字内容、字体等属性</li>
+                    <li>定义namespace Ui，并定义了一个从Ui_Widget继承的类Widget</li>
+                </ol>
+            </li>
+            <li>
+                信号和槽
+                <p>
+                    信号和槽(Signal & Slot)是Qt编程的基础，也是Qt的一大创新。因为有了信号与槽的编程机制，在Qt中处理界面各个组件的交互操作时变得更加直观和简单。
+                    <br />
+                </p>
+                <p>
+                    信号(Signal)就是在特定情况下被发射的事件，例如PushButton最常见的信号就是鼠标单即使发射的clicked()信号，一个ComboBox最常见的信号时选择的列表项变化时发射的CurrentIndexChanged()信号，
+                    GUI程序设计的主要内容就是对界面上各组件的信号的响应，只需要知道什么情况下发射那些信号，合理地去处理这些信号就可以了。
+                </p>
+                <p>
+                    槽(Slot)就是对信号响应的函数。槽就是一个函数，与一般的C++函数是一样的，可以定义在类的任何部分(public、private或protected)，可以具有任何参数，也可以被直接调用。
+                    槽函数与一般的函数不同的是：槽函数可以与一个信号关联，当信号被发射是，关联的槽函数被自动执行。
+                </p>
+                <p>
+                    信号与槽关联使用 QObject::connect()函数实现的，其基本格式是：
+                    <code>
+                        QObject::connect(sender,SIGNAL(signal()),receiver,SLOT(slot()));
+                    </code>
+                </p>
+                <p>
+                    connect()是QObject类的一个静态函数，而QObject是所有Qt类的基类，在实际调用时可以忽略前面的限定符，所以可以直接写为：
+                    <code>
+                        connect(sender,SIGNAL(signal()),receiver,SLOT(slot()));
+                    </code>
+                </p>
+
+                <ol>
+                    关于信号与槽的使用，有以下一些规则需要注意：
+                    <li>
+                        一个信号可以连接多个槽，，当一个信号与多个槽函数相关联是，槽函数按照建立连接是的顺序依次执行。
+                    </li>
+                    <li>多个信号连接同一个槽。</li>
+                    <li>一个信号可以连接另一个信号</li>
+                    <li>严格的情况下，信号与槽的参数需要一致，至少信号的参数不能少于槽的参数。如果不匹配，会出现编译错误过运行错误。</li>
+                    <li>在使用信号与槽的类中，必须在类的定义中加入宏 Q_OBJECT。</li>
+                    <li>当一个信号被发现时，与其关联的槽函数通常被立即执行，就像正常调用一个函数一样。只有但信号关联的所有槽函数执行完毕后，才会执行发射信号出处后面的代码。</li>
+                </ol>
+
+            </li>
+
+            <li>Action
+                <p>Action 是一种不可见的界面元素，主要用于菜单、工具栏按钮的设计。Action的主要信号时trigger(),为一个Action的trigger()信号编写槽函数之后，菜单和工具栏上由此Action创建的菜单项和工具栏按钮就都关联此槽函数。</p>
+            </li>
+        </ul>
+
+
+    </body>
+</html>
